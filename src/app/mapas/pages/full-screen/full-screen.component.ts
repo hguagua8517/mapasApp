@@ -5,6 +5,8 @@ import * as mapboxgl from 'mapbox-gl';
 
 @Component({
   selector: 'app-full-screen',
+  standalone: true,
+  imports: [],
   templateUrl: './full-screen.component.html',
   styles: [`
   #mapa {

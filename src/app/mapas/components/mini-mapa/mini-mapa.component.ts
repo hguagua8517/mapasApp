@@ -3,6 +3,8 @@ import * as mapboxgl from 'mapbox-gl';
 
 @Component({
   selector: 'app-mini-mapa',
+  standalone: true,
+  imports: [],
   templateUrl: './mini-mapa.component.html',
   styles: [`
   div{

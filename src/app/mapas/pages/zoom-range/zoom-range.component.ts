@@ -1,8 +1,11 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import * as mapboxgl from 'mapbox-gl';
 
 @Component({
   selector: 'app-zoom-range',
+  standalone: true,
+  imports: [DecimalPipe],
   templateUrl: './zoom-range.component.html',
   styles: [`
     .mapa-container{

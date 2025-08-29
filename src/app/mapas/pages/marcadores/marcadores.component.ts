@@ -1,4 +1,4 @@
-import { JsonPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 
@@ -11,6 +11,8 @@ interface MarcadorColor {
 
 @Component({
   selector: 'app-marcadores',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './marcadores.component.html',
   styles: [
     `.mapa-container{

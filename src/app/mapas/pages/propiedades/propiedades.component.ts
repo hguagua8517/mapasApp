@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MiniMapaComponent } from '../../components/mini-mapa/mini-mapa.component';
 
 interface Propiedad {
   titulo: string;
@@ -8,6 +10,8 @@ interface Propiedad {
 
 @Component({
   selector: 'app-propiedades',
+  standalone: true,
+  imports: [CommonModule, MiniMapaComponent],
   templateUrl: './propiedades.component.html',
   styles: [
   ]

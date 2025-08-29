@@ -1,11 +1,41 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [
-
+export const routes: Routes = [
   {
     path: 'mapas',
-    loadChildren: () => import('./mapas/mapas.module').then(m => m.MapasModule)
+    children: [
+      {
+        path: 'fullscreen', 
+        loadComponent: () => import('./mapas/pages/full-screen/full-screen.component').then(c => c.FullScreenComponent)
+      },
+      {
+        path: 'zoom-range', 
+        loadComponent: () => import('./mapas/pages/zoom-range/zoom-range.component').then(c => c.ZoomRangeComponent)
+      },
+      {
+        path: 'marcadores', 
+        loadComponent: () => import('./mapas/pages/marcadores/marcadores.component').then(c => c.MarcadoresComponent)
+      },
+      {
+        path: 'propiedades', 
+        loadComponent: () => import('./mapas/pages/propiedades/propiedades.component').then(c => c.PropiedadesComponent)
+      },
+      {
+        path: 'vista3d', 
+        loadComponent: () => import('./mapas/pages/vista3d/vista3d.component').then(c => c.Vista3dComponent)
+      },
+      {
+        path: '', 
+        redirectTo: 'fullscreen', 
+        pathMatch: 'full'
+      }
+    ]
+  },
+  {
+    path: '',
+    redirectTo: 'mapas',
+    pathMatch: 'full'
   },
   {
     path: '**',

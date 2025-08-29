@@ -1,0 +1,105 @@
+<div class="mapa-container">
+  <!-- Controles 3D -->
+  <div class="controls">
+    <h4>Controles 3D</h4>
+    
+    <!-- Controles de características -->
+    <div class="control-group">
+      <label>Características 3D:</label>
+      <button 
+        [class.active]="terrainEnabled"
+        (click)="toggleTerrain()">
+        {{ terrainEnabled ? '✓' : '' }} Terreno 3D
+      </button>
+      <button 
+        [class.active]="buildingsEnabled"
+        (click)="toggleBuildings()">
+        {{ buildingsEnabled ? '✓' : '' }} Edificios 3D
+      </button>
+      <button 
+        [class.active]="fogEnabled"
+        (click)="toggleFog()">
+        {{ fogEnabled ? '✓' : '' }} Atmósfera
+      </button>
+    </div>
+
+    <!-- Control de exageración del terreno -->
+    <div class="control-group">
+      <label>Exageración del Terreno:</label>
+      <div class="slider-container">
+        <input 
+          type="range" 
+          min="0.5" 
+          max="3" 
+          step="0.1" 
+          [value]="exaggeration"
+          (input)="updateExaggeration(+$any($event.target).value)">
+        <span>{{exaggeration}}x</span>
+      </div>
+    </div>
+
+    <!-- Búsqueda de ubicaciones -->
+    <div class="control-group">
+      <label>Buscar Ubicación:</label>
+      <div class="search-container">
+        <input 
+          type="text" 
+          #searchInput
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="searchLocation()"
+          placeholder="Ej: Torre Eiffel, París"
+          class="search-input">
+        <button (click)="searchLocation()" class="search-btn">🔍</button>
+      </div>
+      <div *ngIf="searchLoading" class="loading">Buscando...</div>
+    </div>
+
+    <!-- Ubicaciones guardadas -->
+    <div class="control-group">
+      <label>Ubicaciones Guardadas:</label>
+      <div class="locations-grid">
+        <!-- Ubicaciones predefinidas -->
+        <div *ngFor="let location of defaultLocations" class="location-item">
+          <button (click)="flyToSavedLocation(location)" [title]="location.name">
+            {{location.emoji}} {{location.shortName}}
+          </button>
+          <button (click)="removeLocation(location.id, 'default')" class="remove-btn" title="Eliminar">×</button>
+        </div>
+        
+        <!-- Ubicaciones de búsquedas recientes -->
+        <div *ngFor="let location of recentSearches" class="location-item">
+          <button (click)="flyToSavedLocation(location)" [title]="location.name">
+            📍 {{location.shortName}}
+          </button>
+          <button (click)="removeLocation(location.id, 'recent')" class="remove-btn" title="Eliminar">×</button>
+        </div>
+      </div>
+      
+      <div *ngIf="defaultLocations.length === 0 && recentSearches.length === 0" class="no-locations">
+        No hay ubicaciones guardadas. ¡Busca un lugar para agregarlo!
+      </div>
+    </div>
+
+    <!-- Reset -->
+    <div class="control-group">
+      <button (click)="resetView()" class="reset">🏠 Vista Inicial</button>
+    </div>
+  </div>
+
+  <!-- Panel de información -->
+  <div class="info-panel">
+    <h5>Características 3D Activas:</h5>
+    <ul>
+      <li *ngIf="terrainEnabled">✅ Terreno 3D con elevación real</li>
+      <li *ngIf="buildingsEnabled">✅ Edificios 3D extruidos</li>
+      <li *ngIf="fogEnabled">✅ Efectos atmosféricos</li>
+      <li *ngIf="!terrainEnabled && !buildingsEnabled && !fogEnabled">ℹ️ Activa las características 3D usando los controles</li>
+    </ul>
+    <p>
+      💡 Usa clic y arrastre para rotar, rueda del mouse para zoom, Shift+arrastre para inclinar
+    </p>
+  </div>
+
+  <!-- Contenedor del mapa -->
+  <div #mapa class="mapa-element"></div>
+</div>

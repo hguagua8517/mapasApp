@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 interface MenuItem {
   ruta: string;
@@ -7,16 +9,16 @@ interface MenuItem {
 
 @Component({
   selector: 'app-menu',
+  standalone: true,
+  imports: [RouterModule, CommonModule],
   templateUrl: './menu.component.html',
   styles: [`
-   li{
-    cursor: pointer;
-   }
-  `
-  ]
+    li {
+      cursor: pointer;
+    }
+  `]
 })
 export class MenuComponent {
-
   menuItem: MenuItem[] = [
     {
       ruta: '/mapas/fullscreen',
@@ -28,11 +30,15 @@ export class MenuComponent {
     },
     {
       ruta: '/mapas/marcadores',
-      nombre: 'marcadores'
+      nombre: 'Marcadores'
     },
     {
       ruta: '/mapas/propiedades',
-      nombre: 'propiedades'
+      nombre: 'Propiedades'
+    },
+    {
+      ruta: '/mapas/vista3d',
+      nombre: '🏔️ Vista 3D'
     }
-  ]
+  ];
 }
